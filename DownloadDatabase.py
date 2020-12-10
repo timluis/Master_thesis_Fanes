@@ -839,6 +839,34 @@ def CheckSensorsFromRaw(station):
         return sensorNew
     except IndexError:
         pass"""
+
+def CreateNewDatabse():
+    try:
+        con = sqlite3.connect('Database/WeatherDatabase.db')
+        cur = con.cursor()
+        sql_command = """ CREATE TABLE Stations (
+                            ID INTEGER PRIMARY KEY,
+                            Station_name CHAR,
+                            Station_code CHAR
+                            );"""
+        cur.execute(sql_command)
+        sql_command = """INSERT INTO Stations (ID, Station_name, Station_code) 
+                            VALUES 
+                            (1, 'Piz La Ila','61690SF'),
+                            (2, 'Rossalm','42830SF'),
+                            (3, 'Piz Pisciadu','61720WS'),
+                            (4, 'Wolkenstein','73500MS'),
+                            (5, 'St. Martin','62600MS'),
+                            (6, 'St. Veit','42700MS');"""
+        cur.execute(sql_command)
+        con.commit()
+        con.close()
+        RebuildRawDatabase()
+        RebuildProcessedDatabase()        
+    except Exception as e:
+        print(e)
+
+
 def RebuildRawDatabase():
     con = sqlite3.conncet('Database/WeatherDatabase.db')
     cur = con.cursor()
