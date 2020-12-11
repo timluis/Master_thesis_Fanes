@@ -262,7 +262,7 @@ def ReadDataFromSQLbyID(station,ID_2_1,ID_2_2):
 
 
 def UpdateDatabase(station):
-    """ Updates database if there is new json data
+    """ Updates raw database if there is new json data
     station: string"""
     engine=create_engine('sqlite:///Database/WeatherDatabase.db')
     con = sqlite3.connect('Database/WeatherDatabase.db')
